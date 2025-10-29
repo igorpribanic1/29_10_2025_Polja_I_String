@@ -13,7 +13,7 @@ public class KlasaString {
         String rijec1 = new String("Perica");
 
         System.out.println("Jednakost stringova");
-        // Usporedba vrijednost stingova - metodu equals je bolje koristiti kod usporedbe String varijabli (a kasnije i nizove)
+        // Usporedba vrijednosti stingova - metodu equals je bolje koristiti kod usporedbe String varijabli (a kasnije i nizove)
         System.out.println(rijec.equals(rijec1));
         // Usporedba string objekata - promatra nalaze li se te dvije varijable na istoj memorijskoj lokaciji
         System.out.println(rijec == rijec1);
