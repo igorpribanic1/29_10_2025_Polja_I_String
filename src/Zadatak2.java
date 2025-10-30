@@ -7,7 +7,6 @@ public class Zadatak2 {
         String prviBrojIntervala = "";
         String drugiBrojIntervala = "";
         String savrseniBrojevi = "";
-        int count = 0;
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Ovaj program ima dvije mogućnosti:\n\t1. Provjerava je li upisani pozitivni cijeli broj savršen\n\t2. Ispisuje sve savršene brojeve u definiranom intervalu pozitivnih cijelih brojeva.\n");
@@ -24,7 +23,7 @@ public class Zadatak2 {
             System.out.print("\nUpišite pozitivni cijeli broj za kojeg želite provjeriti je li savršen ili nije: ");
             brojZaProvjeru = sc.nextLine();
 
-            while(!isNumeric(brojZaProvjeru) || (brojZaProvjeru.charAt(0) == '-')) {
+            while(!isStringNumeric(brojZaProvjeru) || (brojZaProvjeru.charAt(0) == '-')) {
                 System.out.print("\nGreška u radu. Uneseni podatak nije pozitivni cijeli broj!\nUpišite pozitivni cijeli broj za kojeg želite provjeriti je li savršen ili nije: ");
                 brojZaProvjeru = sc.nextLine();
             }
@@ -38,10 +37,13 @@ public class Zadatak2 {
             }
 
         } else if(odabranaOpcija.equals("2")){
+            int brojac = 0;
+            int intervalBrojeva =  0;
+
             System.out.print("\nUpišite pozitivni cijeli broj početka intervala brojeva: ");
             prviBrojIntervala = sc.nextLine();
 
-            while(!isNumeric(prviBrojIntervala) || (prviBrojIntervala.charAt(0) == '-')){
+            while(!isStringNumeric(prviBrojIntervala) || (prviBrojIntervala.charAt(0) == '-')){
                 System.out.print("\nGreška u radu. Uneseni podatak nije pozitivni cijeli broj!\nUpišite pozitivni cijeli broj početka intervala brojeva: ");
                 prviBrojIntervala = sc.nextLine();
             }
@@ -53,7 +55,7 @@ public class Zadatak2 {
             int intDrugiBrojIntervala = 0;
 
             while(intPrviBrojIntervala >= intDrugiBrojIntervala) {
-                while (!isNumeric(drugiBrojIntervala) || (drugiBrojIntervala.charAt(0) == '-')) {
+                while (!isStringNumeric(drugiBrojIntervala) || (drugiBrojIntervala.charAt(0) == '-')) {
                     System.out.print("\nGreška u radu. Uneseni podatak nije pozitivni cijeli broj!\nUpišite pozitivni cijeli broj kraja intervala brojeva: ");
                     drugiBrojIntervala = sc.nextLine();
                 }
@@ -64,22 +66,27 @@ public class Zadatak2 {
                 }
             }
 
-            for (int i = intPrviBrojIntervala; i <= intDrugiBrojIntervala ; i++) {
+            intervalBrojeva = intDrugiBrojIntervala - intPrviBrojIntervala;
+            if(intervalBrojeva > 100000){
+                System.out.println("Definirali ste jako veliki interval brojeva. Provjera bi mogla potrajati neko vrijeme!");
+            }
+
+            for(int i = intPrviBrojIntervala; i <= intDrugiBrojIntervala ; i++) {
                 if(isPerfect(i)){
-                    if(count == 0){
+                    if(brojac == 0){
                         savrseniBrojevi = Integer.toString(i);
                     } else{
                         savrseniBrojevi += ", " + i;
                     }
-                    count += 1;
+                    brojac += 1;
                 }
             }
 
 
 
-            if(count == 0){
+            if(brojac == 0){
                 System.out.println("U definiranom intervalu od " + prviBrojIntervala + " do " + drugiBrojIntervala + " nema savršenih brojeva!");
-            } else if(count == 1){
+            } else if(brojac == 1){
                 System.out.println("U definiranom intervalu od " + prviBrojIntervala + " do " + drugiBrojIntervala + " savršeni broj je: " + savrseniBrojevi + "!");
             } else{
                 System.out.println("U definiranom intervalu od " + prviBrojIntervala + " do " + drugiBrojIntervala + " savršeni brojevi su: " + savrseniBrojevi + "!");
@@ -93,7 +100,7 @@ public class Zadatak2 {
 
 
 
-    private static boolean isNumeric(String str){
+    private static boolean isStringNumeric(String str){
         try{
             Integer.parseInt(str);
             return true;
@@ -101,6 +108,7 @@ public class Zadatak2 {
             return false;
         }
     }
+
 
 
     private static boolean isPerfect(int broj){
